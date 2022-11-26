@@ -78,13 +78,7 @@ func main() {
 		http.StripPrefix("/statics/", http.FileServer(http.Dir("./statics"))),
 	).Methods("GET")
 
-	var port string = os.Getenv("PORT")
-	if port == "" {
-		panic("PORT environment variable must be set")
-	}
-	log.Println("Listening on port " + port)
-
-	log.Fatal(http.ListenAndServe(":" + port,
+	log.Fatal(http.ListenAndServe(":8080",
 		HandleMiddlewares(
 			r,
 			addRequestID(),

@@ -9,7 +9,6 @@ ADD statics /app/statics/
 
 COPY invoicer /app/invoicer
 USER app
-# Don't need to expose explicitly, Dokku will do it for us
-# EXPOSE 8080
+EXPOSE 8080
 WORKDIR /app
 ENTRYPOINT /app/invoicer
