@@ -42,15 +42,13 @@ func main() {
 		err error
 	)
 	var db *gorm.DB
-	if os.Getenv("INVOICER_USE_POSTGRES") != "" {
+	var url string = os.Getenv("DATABASE_URL")
+	if url != "" {
+		if !url.HasPrefix("postgres://") {
+			panic("DATABASE_URL must start with postgres://, only postgres is supported")
+		}
 		log.Println("Opening postgres connection")
-		db, err = gorm.Open("postgres", fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=%s",
-			os.Getenv("INVOICER_POSTGRES_USER"),
-			os.Getenv("INVOICER_POSTGRES_PASSWORD"),
-			os.Getenv("INVOICER_POSTGRES_HOST"),
-			os.Getenv("INVOICER_POSTGRES_DB"),
-			os.Getenv("INVOICER_POSTGRES_SSLMODE"),
-		))
+		db, err = gorm.Open("postgres", url)
 	} else {
 		log.Println("Opening sqlite connection")
 		db, err = gorm.Open("sqlite3", "invoicer.db")

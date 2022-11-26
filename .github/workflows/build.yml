@@ -38,3 +38,9 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_APPNAME }}:latest
 
+    - name: Push to dokku
+      uses: dokku/github-action@master
+      with:
+        git_remote_url: 'ssh://dokku@${{ secrets.DOKKU_HOSTNAME }}/{{ secrets.DOKKU_APPNAME }}'
+        ssh_private_key: ${{ secrets.DOKKU_PRIVATEKEY }}
+        deploy_docker_image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_APPNAME }}:latest
