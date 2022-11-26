@@ -28,9 +28,6 @@ jobs:
     - name: Run Go generators in source code
       run: go generate
 
-    - name: Test
-      run: go test ./...
-
     - name: Build app
       run: go build ./...
 
