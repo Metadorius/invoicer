@@ -10,6 +10,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -44,7 +45,7 @@ func main() {
 	var db *gorm.DB
 	var url string = os.Getenv("DATABASE_URL")
 	if url != "" {
-		if !url.HasPrefix("postgres://") {
+		if !strings.HasPrefix(url, "postgres://") {
 			panic("DATABASE_URL must start with postgres://, only postgres is supported")
 		}
 		log.Println("Opening postgres connection")
