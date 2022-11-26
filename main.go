@@ -82,6 +82,7 @@ func main() {
 	if port == "" {
 		panic("PORT environment variable must be set")
 	}
+	log.Println("Listening on port " + port)
 
 	log.Fatal(http.ListenAndServe(":" + port,
 		HandleMiddlewares(
