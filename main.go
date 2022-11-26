@@ -49,13 +49,14 @@ func main() {
 			panic("DATABASE_URL must start with postgres://, only postgres is supported")
 		}
 		log.Println("Opening postgres connection")
+		log.Println(url)
 		db, err = gorm.Open("postgres", url)
 	} else {
 		log.Println("Opening sqlite connection")
 		db, err = gorm.Open("sqlite3", "invoicer.db")
 	}
 	if err != nil {
-		panic("failed to connect database")
+		panic(err)
 	}
 
 	iv.db = db
