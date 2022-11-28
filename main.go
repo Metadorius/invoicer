@@ -307,6 +307,7 @@ func (iv *invoicer) getOAuth2Callback(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Failed to verify oauth state via CSRF token '" + r.FormValue("state") + "'"))
 		return
 	}
+	oauthCfg.RedirectURL = "http://" + r.Host + "/oauth2callback"
 	token, err := oauthCfg.Exchange(oauth2.NoContext, r.FormValue("code"))
 	if err != nil {
 		w.WriteHeader(http.StatusNotAcceptable)
