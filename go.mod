@@ -7,10 +7,12 @@ require (
 	github.com/jinzhu/gorm v1.9.16
 	github.com/wader/gormstore v0.0.0-20221121161654-f7e125d24e58
 	go.mozilla.org/mozlog v0.0.0-20170222151521-4bb13139d403
+	golang.org/x/oauth2 v0.2.0
 )
 
 require (
 	github.com/davecgh/go-spew v1.1.1-0.20170829195320-a47672248388 // indirect
+	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/gorilla/securecookie v1.1.1 // indirect
 	github.com/gorilla/sessions v1.2.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
@@ -18,4 +20,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.16 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/stretchr/testify v1.1.5-0.20170809224252-890a5c3458b4 // indirect
+	golang.org/x/net v0.2.0 // indirect
+	google.golang.org/appengine v1.6.7 // indirect
+	google.golang.org/protobuf v1.28.1 // indirect
 )
