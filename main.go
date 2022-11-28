@@ -322,15 +322,17 @@ func (iv *invoicer) getOAuth2Callback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	buf := make([]byte, 10240)
-	resp.Body.Read(buf)
-	fmt.Printf("%s\n", buf)
+	l, _ := resp.Body.Read(buf)
+	buf = buf[:l]
+	fmt.Println("Got response from IDP: " + string(buf))
 	var up UserProfile
-	//err = json.Unmarshal(buf, &up)
-	//if err != nil {
-	//	w.WriteHeader(http.StatusExpectationFailed)
-	//	w.Write([]byte("Failed to parse user information from " + string(buf)))
-	//	return
-	//}
+	err = json.Unmarshal(buf, &up)
+	if err != nil {
+		log.Printf("Failed to unmarshal user profile: %s", err)
+		w.WriteHeader(http.StatusNotAcceptable)
+		w.Write([]byte("Failed to parse user information from " + string(buf)))
+		return
+	}
 
 	// Create a session, save it and return a cookie
 	session, err := iv.store.Get(r, "session")
@@ -351,6 +353,10 @@ This app is now authenticated to access your Google user info.  Your details are
 }
 
 type UserProfile struct {
-	Name    string `json:"name"`
-	Picture string `json:"picture"`
+	ID         string `json:"id"`
+	Name       string `json:"name"`
+	GivenName  string `json:"given_name"`
+	FamilyName string `json:"family_name"`
+	Picture    string `json:"picture"`
+	Locale     string `json:"locale"`
 }
